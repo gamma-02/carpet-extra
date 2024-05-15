@@ -25,16 +25,18 @@ public abstract class NoteBlockMixin {
         return;
     }
 
-    @Redirect(
-            method = "onUse",
-            at = @At(
-                value = "INVOKE",
-                target = "net/minecraft/entity/player/PlayerEntity.getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"
-            )
-        )
-        private ItemStack onGetItemInHand(PlayerEntity player, Hand hand) {
-            // player will never be null in VANILLA
-            if (player == null) return ItemStack.EMPTY;
-            return player.getStackInHand(hand);
-        }
+
+    //This is causing an error, the method no longer exists in NoteBlock#onUse
+//    @Redirect(
+//            method = "onUse",
+//            at = @At(
+//                value = "INVOKE",
+//                target = "net/minecraft/entity/player/PlayerEntity.getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"
+//            )
+//        )
+//    private ItemStack onGetItemInHand(PlayerEntity player, Hand hand) {
+//        // player will never be null in VANILLA
+//        if (player == null) return ItemStack.EMPTY;
+//        return player.getStackInHand(hand);
+//    }
 }

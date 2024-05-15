@@ -16,6 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.event.GameEvent;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class CarvePumpkinDispenserBehavior extends FallibleItemDispenserBehavior {
     @Override
     protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -41,9 +43,8 @@ public class CarvePumpkinDispenserBehavior extends FallibleItemDispenserBehavior
             world.emitGameEvent(null, GameEvent.SHEAR, frontBlockPos);
 
             // damage shears, remove if broken
-            if(stack.damage(1, world.random, null)) {
-                stack.setCount(0);
-            }
+            stack.damage(1, world.random, null, () ->  stack.setCount(0));
+
 
             return stack;
         }

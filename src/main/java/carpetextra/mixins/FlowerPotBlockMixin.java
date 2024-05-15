@@ -33,6 +33,7 @@ public abstract class FlowerPotBlockMixin extends Block
 
     @Inject(
         method = "onUse",
+        cancellable = true,
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
@@ -40,9 +41,10 @@ public abstract class FlowerPotBlockMixin extends Block
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void onActivate(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir, ItemStack itemStack, Item i, BlockState blockState) {
+    //BlockState arg0, World world, BlockPos pos, PlayerEntity player, BlockHitResult arg4, CallbackInfoReturnable<ActionResult> cir
+    private void onActivate(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         // check if chunk should add force load when flower is placed in pot
-        FlowerPotHelper.updateLoadStatus(world, pos, ((FlowerPotBlock) blockState.getBlock()).getContent(), true);
+        FlowerPotHelper.updateLoadStatus(world, pos, ((FlowerPotBlock) state.getBlock()).getContent(), true);
     }
 
     @Override

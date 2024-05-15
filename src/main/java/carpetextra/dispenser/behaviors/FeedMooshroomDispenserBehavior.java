@@ -3,11 +3,11 @@ package carpetextra.dispenser.behaviors;
 import java.util.List;
 import java.util.Optional;
 
+import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.registry.tag.ItemTags;
 
 import carpetextra.mixins.MooshroomEntity_StatusEffectAccessorMixin;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.SuspiciousStewIngredient.StewEffect;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.MooshroomEntity;
@@ -43,7 +43,7 @@ public class FeedMooshroomDispenserBehavior extends FallibleItemDispenserBehavio
                 // check if mooshroom has no stew effect
                 if (mooshroomAccessor.getStewEffects() == null) {
                     // get stew effect and length for flower
-                	Optional<List<StewEffect>> effect = mooshroomAccessor.invokeGetStewEffectFrom(stack);
+                	Optional<SuspiciousStewEffectsComponent> effect = mooshroomAccessor.invokeGetStewEffectFrom(stack);
 
                     // check if effect is present
                     if (effect.isPresent()) {

@@ -1,5 +1,6 @@
 package carpetextra.mixins;
 
+import io.netty.util.SuppressForbidden;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,7 +12,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPointer;
 
-@Mixin(targets = {"net/minecraft/block/dispenser/DispenserBehavior$14", "net/minecraft/block/dispenser/DispenserBehavior$15"})
+@Mixin(targets = {"net/minecraft/block/dispenser/DispenserBehavior$12", "net/minecraft/block/dispenser/DispenserBehavior$13"})
 public abstract class DispenserBehaviorMobHeadMixin extends FallibleItemDispenserBehavior {
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(

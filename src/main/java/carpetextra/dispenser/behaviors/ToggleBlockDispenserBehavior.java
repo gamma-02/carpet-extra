@@ -52,7 +52,7 @@ public class ToggleBlockDispenserBehavior extends FallibleItemDispenserBehavior 
             BlockHitResult hitResult = new BlockHitResult(Vec3d.of(frontBlockPos), dispenserFacing.getOpposite(), frontBlockPos, false);
 
             // try to use block
-            if(frontBlockState.onUse(world, null, Hand.MAIN_HAND, hitResult).isAccepted()) {
+            if(frontBlockState.onUse(world, null, hitResult).isAccepted()) {
                 return stack;
             }
         }

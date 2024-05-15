@@ -1,5 +1,6 @@
 package carpetextra.mixins;
 
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,13 +12,12 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPointer;
 
-@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$16")
+@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$13")
 public abstract class DispenserBehaviorCarvedPumpkinMixin extends FallibleItemDispenserBehavior {
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(
             method = "dispenseSilently(Lnet/minecraft/util/math/BlockPointer;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;",
-            at = @At("RETURN"),
-            cancellable = true
+            at = @At("RETURN")
     )
     private void handleBlockPlacing(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir)
     {

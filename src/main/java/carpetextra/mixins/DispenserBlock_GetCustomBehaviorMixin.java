@@ -32,7 +32,7 @@ public abstract class DispenserBlock_GetCustomBehaviorMixin {
         method = "dispense",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/block/DispenserBlock;getBehaviorForItem(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/block/dispenser/DispenserBehavior;"
+            target = "Lnet/minecraft/block/DispenserBlock;getBehaviorForItem(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/block/dispenser/DispenserBehavior;"
         ),
         locals = LocalCapture.CAPTURE_FAILHARD,
         cancellable = true

@@ -41,9 +41,7 @@ public class TillSoilDispenserBehavior extends FallibleItemDispenserBehavior {
                 // use on block, test if sucessful
                 if(stack.getItem().useOnBlock(context).isAccepted()) {
                     // damage hoe, remove if broken
-                    if(stack.damage(1, world.random, null)) {
-                        stack.setCount(0);
-                    }
+                    stack.damage(1, world.random, null, () ->  stack.setCount(0));
 
                     return stack;
                 }

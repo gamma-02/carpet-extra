@@ -18,6 +18,8 @@ import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.SlabType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -39,6 +41,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.Collection;
+import java.util.Objects;
 
 public class PlaceBlockDispenserBehavior  extends ItemDispenserBehavior {
     private static final PlaceBlockDispenserBehavior instance = new PlaceBlockDispenserBehavior();
@@ -131,14 +134,14 @@ public class PlaceBlockDispenserBehavior  extends ItemDispenserBehavior {
             boolean blockWasPlaced = world.setBlockState(pos, state);
             block.onPlaced(world, pos, state, null, itemStack);
             world.updateNeighbor(pos, state.getBlock(), pos);
-            NbtCompound blockEntityTag = itemStack.getSubNbt("BlockEntityTag");
+            NbtCompound blockEntityTag = itemStack.getOrDefault(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(new NbtCompound())).copyNbt();
             if (blockEntityTag != null && block instanceof BlockEntityProvider) {
                 BlockEntity be = world.getBlockEntity(pos);
                 blockEntityTag = new NbtCompound().copyFrom(blockEntityTag);
                 blockEntityTag.putInt("x", pos.getX());
                 blockEntityTag.putInt("y", pos.getY());
                 blockEntityTag.putInt("z", pos.getZ());
-                be.readNbt(blockEntityTag);
+                be.readComponentlessNbt(blockEntityTag, Objects.requireNonNull(be.getWorld()).getRegistryManager());
             }
             if (currentFluidState.isStill() && block instanceof FluidFillable) {
                 ((FluidFillable) block).tryFillWithFluid(world, pos, state, currentFluidState);
